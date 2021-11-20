@@ -3,4 +3,12 @@
   <groupId>cessi</groupId>
   <artifactId>tierramedia</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+	<dependencies>
+		<dependency>
+			<groupId>org.xerial</groupId>
+			<artifactId>sqlite-jdbc</artifactId>
+			<version>3.36.0.3</version>
+		</dependency>
+
+	</dependencies>
 </project>
