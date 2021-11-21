@@ -17,7 +17,7 @@ public class Usuario {
 	public void agregar(Ofertable ofertable) {		
 		reducirTiempo(ofertable.obtenerDuracion());
 		reducirPresupuesto(ofertable.obtenerCosto());
-		itinerario.agregar(ofertable)
+		itinerario.agregar(ofertable);
 	}
 	public boolean estaCargada(Ofertable ofertable) {		
 		return itinerario.estaCargada(ofertable);
