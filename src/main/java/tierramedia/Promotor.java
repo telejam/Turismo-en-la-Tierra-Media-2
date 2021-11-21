@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Promotor{
 
 	PaqueteAtracciones paqueteAtracciones = new PaqueteAtracciones();
-	ListadoUsuarios listadoUsuarios = new ListadoUsuarios();
+	UsuarioDAO daoUsuarios = new UsuarioDAO();
 	PaquetePromociones paquetePromociones = new PaquetePromociones(paqueteAtracciones.getAtracciones());
 	List<Ofertable> ofertas = new ArrayList<Ofertable>(); 
 
@@ -24,7 +24,7 @@ public class Promotor{
 		
     	Collections.sort(ofertas, new ComparadorOfertables());
 
-		for (Usuario usuario : listadoUsuarios.getUsuarios()) {
+		for (Usuario usuario : daoUsuarios.findAll()) {
 
 			System.out.println("Nombre de visitante: " + usuario.getNombre().toUpperCase() + "\n");
 

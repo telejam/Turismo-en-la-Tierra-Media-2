@@ -1,97 +1,94 @@
-package tierramedia; //////////////////////////////este es maven 
+package tierramedia; 
 
-import java.beans.Statement;
-import java.io.File;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;///////////////////////////////este es maven 
+import java.sql.SQLException; 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
 
 public class PaquetePromociones {
 
 	private List<Promocion> promociones = new ArrayList<Promocion>();
-
-	public PaquetePromociones(List<Atraccion> lista) {
+	private List<PromoParcial> parciales = new ArrayList<PromoParcial>();
+	private PromocionDAO dao = new PromocionDAO();
+		
+	public PaquetePromociones(List<Atraccion> lista) throws SQLException {
 		cargarPromociones(lista);
 
 	}
 
-	public void cargarPromociones(List<Atraccion> lista) implements PromocionDAO {//// revisar que le llega a cargarPromociones uml 
+	private void cargarPromociones(List<Atraccion> lista) throws SQLException { 
 
+		parciales = dao.findAll();
+		List<Integer> idIncluidas;
+		List<Integer> idGratuitas;
+		List<Atraccion> pasarAtracciones;
+		List<Atraccion> listaAPagar;
+		List<Atraccion> listaAtraccionesGratuitas;
 
+		for (PromoParcial promo : parciales) {
 
-		public List<Atraccion> findIncluidas(int id) {
-			String sql = "SELECT * FROM Atracciones_incluidas WHERE id=?";
-			Statement.setInt(1, id);/////////////////////////////////////////////////////////////////////////////////////// 
-			Connection conn = Conexion.getConexion();
-			PreparedStatement statement = conn.prepareStatement(sql);
-			ResultSet resultados = statement.executeQuery();
-			List<Atraccion> atracciones = new ArrayList<Atraccion>();
-			while (resultados.next()) {
-				Atraccion atraccion=findatraccionbyid(resultados.getInt("id_atraccion"));
-
-				atracciones.add(atraccion);
-			}
-			return atracciones;
+			idIncluidas = dao.findIdIncluidas(promo.getId());
 			
-		}
-		
-		
-			
-		public List<promociones> lista findAll() {
-			try {
-				String sql = "SELECT * FROM promociones";
-				Connection conn = Conexion.getConexion();
-				PreparedStatement statement = conn.prepareStatement(sql);
-				ResultSet resultados = statement.executeQuery();
-				List<Promocion> promociones = new ArrayList<Promocion>();
-				while(resultados.next()) {
-
-
-					if (resultados.getString("tipo").equals("%")) {
-
-
-
-promociones.add(new PromocionPorcentual(resultados.getInt("id"),resultados.getString("nombre"),findIncluidas(resultados.getInt("id")),
-					resultados.getInt("valor");
-
-					}else if (resultados.getString("tipo").equals("$")) {
-
-promociones.add(new PromocionAbsoluta(resultados.getInt("id"),resultados.getString("nombre"),findIncluidas(resultados.getInt("id")),
-			resultados.getInt("valor"));
-
-					} else { 
-
-						for (String  idAtraccion : listaAtraccionesGratuitas) {
-							for (Atraccion atraccion : lista) {
-								if (atraccion.getId()==idAtraccion)) {
-									pasarAtracciones.add(atraccion);
-								}
-							}
-						}
- promociones.add(new PromocionAxB(resultados.getInt("id"),resultados.getString("nombre"), findIncluidas(resultados.getInt("id")),
-		 pasarAtracciones,resultados.getInt("valor"));
-
+			pasarAtracciones = new ArrayList<Atraccion>();
+			for (int id : idIncluidas) {
+				for (Atraccion atraccion : lista) {
+					if (atraccion.getId() == id) {
+						pasarAtracciones.add(atraccion);
 					}
+				}
+			}
+			
+			if (promo.getTipo().equals("%")) {
 
+				promociones.add(new PromocionPorcentual(
+						promo.getId(),
+						promo.getNombre(),
+						pasarAtracciones, 
+						promo.getValor()
+				));
+
+			} else if (promo.getTipo().equals("$")) {
+
+				promociones.add(new PromocionAbsoluta(
+					promo.getId(),
+					promo.getNombre(),
+					pasarAtracciones, 
+					promo.getValor()
+				));
+
+			} else { 
+
+				listaAPagar = new ArrayList<Atraccion>();
+				listaAPagar.addAll(pasarAtracciones);
+				
+				idGratuitas = dao.findIdGratuitas(promo.getId());
+				
+				listaAtraccionesGratuitas = new ArrayList<Atraccion>();
+				for (int id : idGratuitas) {
+					for (Atraccion atraccion : lista) {
+						if (atraccion.getId() == id) {
+							listaAtraccionesGratuitas.add(atraccion);
+						}
+					}
 				}
 
+				
+				pasarAtracciones.addAll(listaAtraccionesGratuitas);
+
+				
+				promociones.add(new PromocionAxB(
+						promo.getId(),
+						promo.getNombre(),
+						pasarAtracciones, 
+						listaAPagar
+				));
 
 			}
-		} catch(Exception e) {
-			throw new Exception(e);
+
 		}
-	}
 
 
-	public void ordenar() {
-		Collections.sort(promociones, new ComparadorOfertables());
 	}
+
 
 	public List<Promocion> getPromociones() {
 		return promociones;

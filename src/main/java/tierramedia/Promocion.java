@@ -2,25 +2,28 @@ package tierramedia;
 
 import java.util.List;
 
-import tierramedia.Atraccion;
-import tierramedia.Ofertable;
-
 
 public abstract class Promocion implements Ofertable {
-    protected int id;
+
+	protected int id;
 	protected String nombre;
 	protected List<Atraccion> atracciones;
-	
-     promocionDAO dao=new promocionDAO();
-     
-	public Promocion(int id,String nombre, List<Atraccion> atraccionesPromo) {
-		this.id=id;
+
+	public Promocion(int id, String nombre, List<Atraccion> atraccionesPromo) {
+		this.id = id;
 		this.nombre = nombre;
-		this.atracciones= atraccionesPromo;
-		
+		this.atracciones = atraccionesPromo;
 	}
 
-	public String getNombre() { // metodo para tomar nombre de la promocion de la db 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNombre() {
 		return nombre;
 	}
 
@@ -28,7 +31,6 @@ public abstract class Promocion implements Ofertable {
 		this.nombre = nombre;
 	}
 
-	@Override
 	public boolean hayCupo() {
 		boolean cupo = true;
 		for (Atraccion atraccion : this.atracciones) {
@@ -39,7 +41,13 @@ public abstract class Promocion implements Ofertable {
 		}
 		return cupo;
 	}
-	@Override
+
+	public void restarCupo() {
+		for (Atraccion atraccion : this.atracciones) {
+			atraccion.restarCupo();
+		}
+	}
+	
 	public double obtenerDuracion() {
 
 		double sumaTiempos = 0;
@@ -48,11 +56,11 @@ public abstract class Promocion implements Ofertable {
 		}
 		return sumaTiempos;
 	}
-	@Override
-	public List<Atraccion> obtenerContenido() {
-
-          return atracciones;
-
-	}
 	
+
+	public List<Atraccion> obtenerContenido() {
+          return atracciones;
+	}
 }
+
+
