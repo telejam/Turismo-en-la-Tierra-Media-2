@@ -8,11 +8,11 @@ import java.sql.Connection;
 
 
 
-public class itinerario {
+public class Itinerario {
 	private ArrayList<Atraccion> atracciones = new ArrayList<Atraccion>();
 	private Usuario usuario;
 
-	public itinerario(Usuario usuario) {
+	public Itinerario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 
@@ -62,7 +62,9 @@ public void agregar(Ofertable ofertable) {
 		dao.insert(ofertable.getId(), tipo,  usuario.id(), usuario.getNombre(), ofertable.obtenerCosto(), ofertable.obtenerDuracion());
 
 }
-
+    for (Atraccion atraccion : ofertable.obtenerContenido()) {
+	      atracciones.add(atraccion);
+    }
 }
 	
 	
