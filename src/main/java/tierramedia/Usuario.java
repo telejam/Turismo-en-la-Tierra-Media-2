@@ -13,11 +13,15 @@ public class Usuario {
 		this.tiempoDisponible = tiempoDisponible;
 	}
 	
-	public void agregarAItinerario(Ofertable ofertable) {		
-		usuario.reducirTiempo(ofertable.obtenerDuracion());
-		usuario.reducirPresupuesto(ofertable.obtenerCosto());
-	}
 	
+	public void agregar(Ofertable ofertable) {		
+		reducirTiempo(ofertable.obtenerDuracion());
+		reducirPresupuesto(ofertable.obtenerCosto());
+		itinerario.agregar(ofertable);
+	}
+	public boolean estaCargada(Ofertable ofertable) {		
+		return itinerario.estaCargada(ofertable);
+	}
 	public void  reducirPresupuesto(double costoDeVisita) {
 		this.presupuesto -= costoDeVisita;
 	}
