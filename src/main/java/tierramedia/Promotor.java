@@ -1,5 +1,6 @@
 package tierramedia;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,24 +8,32 @@ import java.util.Scanner;
 
 public class Promotor{
 
-	PaqueteAtracciones paqueteAtracciones = new PaqueteAtracciones();
+	List<Atraccion> atracciones;
+	List<Usuario> usuarios;
 	UsuarioDAO daoUsuarios = new UsuarioDAO();
-	PaquetePromociones paquetePromociones = new PaquetePromociones(paqueteAtracciones.getAtracciones());
+	AtraccionDAO daoAtraccion = new AtraccionDAO();
+	PaquetePromociones paquetePromociones;
 	List<Ofertable> ofertas = new ArrayList<Ofertable>(); 
 
-	public void iniciar() {
+	public Promotor() throws SQLException {
+		atracciones = daoAtraccion.findAll();
+		usuarios = daoUsuarios.findAll();
+		paquetePromociones = new PaquetePromociones(atracciones);
+	}
+	
+	public void iniciar() throws SQLException {
 		
 		for (Promocion promocion : paquetePromociones.getPromociones()) {
 			ofertas.add((Ofertable) promocion);
 		}
 
-		for (Atraccion atraccion : paqueteAtracciones.getAtracciones()) {
+		for (Atraccion atraccion : atracciones) {
 			ofertas.add((Ofertable) atraccion);
 		}
 		
     	Collections.sort(ofertas, new ComparadorOfertables());
 
-		for (Usuario usuario : daoUsuarios.findAll()) {
+		for (Usuario usuario : usuarios) {
 
 			System.out.println("Nombre de visitante: " + usuario.getNombre().toUpperCase() + "\n");
 
@@ -32,13 +41,10 @@ public class Promotor{
 				procesar(oferta, usuario);
 			}
 		
-		
-		
-		
 		}
 	}
 
-	private void procesar(Ofertable oferta, Usuario usuario) {
+	private void procesar(Ofertable oferta, Usuario usuario) throws SQLException {
 		Scanner entrada= null;
 
 		//		verificar Ya Cargada
