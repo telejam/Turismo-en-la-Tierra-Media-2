@@ -1,10 +1,14 @@
 package tierramedia;
 
+import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class Itinerario {
 	private ArrayList<Atraccion> atracciones = new ArrayList<Atraccion>();
 	private Usuario usuario;
+	private double tiempoDeVisita = 0;
+	private double costoDeVisita = 0;
 
 	public Itinerario(Usuario usuario) {
 		this.usuario = usuario;
@@ -35,8 +39,8 @@ public class Itinerario {
 		if (listaAtracciones.equals("")) {
 			mensaje += "Usted no ha elegido ninguna oferta. ";
 		} else {
-			mensaje += listaAtracciones + "\n\n Su Costo total: " + f.format(this.costoDeVisita) + " monedas de oro "
-					+ "\n\n Su Tiempo total: " + f.format(this.tiempoDeVisita) + " horas.";
+			mensaje += listaAtracciones + "\n\n Su Costo total: " + f.format(this.costoDeVisita ) + " monedas de oro "
+					+ "\n\n Su Tiempo total: " + f.format(this.tiempoDeVisita ) + " horas.";
 		}
 		return mensaje + "\n\nQue disfrute su visita a la Tierra Media."
 				+ "\n\n-------------------------------------------------------------------\n";
@@ -46,7 +50,7 @@ public class Itinerario {
 
 	
 
-	public void agregar(Ofertable ofertable) {
+	public void agregar(Ofertable ofertable) throws SQLException {
 		ItinerarioDAO dao = new ItinerarioDAO(); 
 	  
 		String tipo;
@@ -55,13 +59,15 @@ public class Itinerario {
 		}  else { 
 			tipo = "A";
 		}
-		dao.insert(ofertable.getId(), tipo,  usuario.id(), usuario.getNombre(), ofertable.obtenerCosto(), ofertable.obtenerDuracion());
+		dao.insert(ofertable.getId(), tipo,  usuario.getId(), usuario.getNombre(), ofertable.obtenerCosto(), ofertable.obtenerDuracion());
 
 		 for (Atraccion atraccion : ofertable.obtenerContenido()) {
 		      atracciones.add(atraccion);
 	    }
 
-		
+	    this.tiempoDeVisita += ofertable.obtenerDuracion();
+	    this.costoDeVisita +=ofertable.obtenerCosto();
+
 		
 	}
    
