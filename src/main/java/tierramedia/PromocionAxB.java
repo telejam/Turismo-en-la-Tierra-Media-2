@@ -7,12 +7,11 @@ public class PromocionAxB extends Promocion {
 	
 	private  List<Atraccion> atraccionesAPagar;
 	
-	public PromocionAxB(String nombre, List<Atraccion> atracciones, List<Atraccion> atraccionesAPagar) {
-		super(nombre, atracciones);
+	public PromocionAxB(int id, String nombre, List<Atraccion> atracciones, List<Atraccion> atraccionesAPagar) {
+		super(id, nombre, atracciones);
 		this.atraccionesAPagar = atraccionesAPagar;
 	}
 
-	@Override
 	public double obtenerCosto() {
 		double precio = 0;
 		for (Atraccion atraccion : atraccionesAPagar) {

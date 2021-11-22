@@ -7,12 +7,11 @@ public class PromocionPorcentual extends Promocion  {
 	
 	private double porcentajeDeDescuento;
 	
-	public PromocionPorcentual( String nombre, List<Atraccion> atraccionesPromo,double porcentaje) {
-		super(nombre,atraccionesPromo);
-	    this. porcentajeDeDescuento=porcentaje;
+	public PromocionPorcentual(int id, String nombre, List<Atraccion> atraccionesPromo, double valor) {
+		super(id, nombre,atraccionesPromo);
+	    this. porcentajeDeDescuento = valor;
 	}
 	
-	@Override
 	public double obtenerCosto() {
 		double precio = 0;
 		for (Atraccion atraccion : atracciones) {
@@ -30,6 +29,6 @@ public class PromocionPorcentual extends Promocion  {
 			listaAtracciones += "    -" + atraccion.getNombre() + ", " + f.format(atraccion.obtenerCosto()) + " monedas de oro\n";
 		}
 		return "Promoción: " + this.nombre + "\n-Atracciones incluidas: \n" + listaAtracciones +
-				"\n-Duración: " + f.format(this.obtenerDuracion()) + " horas \n-Precio con descuento: " + f.format(obtenerCosto()) + " monedas de oro";
+				"\n-Duración: " + f.format(this.obtenerDuracion()) + " horas \n-Precio con descuento: " + f.format(obtenerCosto()) + " monedas de oro\n";
 	}
 }

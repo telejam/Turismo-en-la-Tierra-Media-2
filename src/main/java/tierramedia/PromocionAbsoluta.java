@@ -7,12 +7,11 @@ public class PromocionAbsoluta extends Promocion {
 	
 	private double precioFijo;
 	
-	public PromocionAbsoluta(String nombre, List<Atraccion> atracciones, double precio) {
-		super(nombre, atracciones);
-		this.precioFijo = precio;
+	public PromocionAbsoluta(int id, String nombre, List<Atraccion> atracciones, double valor) {
+		super(id, nombre, atracciones);
+		this.precioFijo = valor;
 	}
 
-	@Override
 	public double obtenerCosto() {
 		return this.precioFijo;
 	}

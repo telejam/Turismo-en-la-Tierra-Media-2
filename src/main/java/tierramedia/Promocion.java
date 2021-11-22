@@ -15,6 +15,7 @@ public abstract class Promocion implements Ofertable {
 		this.atracciones = atraccionesPromo;
 	}
 
+	@Override
 	public int getId() {
 		return id;
 	}
@@ -31,6 +32,7 @@ public abstract class Promocion implements Ofertable {
 		this.nombre = nombre;
 	}
 
+	@Override
 	public boolean hayCupo() {
 		boolean cupo = true;
 		for (Atraccion atraccion : this.atracciones) {
@@ -42,12 +44,14 @@ public abstract class Promocion implements Ofertable {
 		return cupo;
 	}
 
+	@Override
 	public void restarCupo() {
 		for (Atraccion atraccion : this.atracciones) {
 			atraccion.restarCupo();
 		}
 	}
 	
+	@Override
 	public double obtenerDuracion() {
 
 		double sumaTiempos = 0;
@@ -58,6 +62,7 @@ public abstract class Promocion implements Ofertable {
 	}
 	
 
+	@Override
 	public List<Atraccion> obtenerContenido() {
           return atracciones;
 	}
