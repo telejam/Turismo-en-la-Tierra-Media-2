@@ -10,6 +10,7 @@ public class Usuario {
 	private Itinerario itinerario = new Itinerario(this);
 	
 	public Usuario(int id, String nombre, double presupuesto, double tiempoDisponible) {
+		this.id = id;
 		this.nombre = nombre;
 		this.presupuesto = presupuesto;
 		this.tiempoDisponible = tiempoDisponible;
@@ -53,7 +54,7 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return "Usuario [nombre= " + nombre + ", presupuesto= " + presupuesto + ", tiempoDisponible= " + tiempoDisponible
+		return "Usuario [id= " + id + ", nombre= " + nombre + ", presupuesto= " + presupuesto + ", tiempoDisponible= " + tiempoDisponible
 				+ "]\n";
 	}
 	
