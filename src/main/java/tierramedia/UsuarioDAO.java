@@ -64,7 +64,7 @@ public int update(Usuario usuario) throws SQLException {
 		int id = result.getInt("id");
 		String nombre = result.getString("nombre");
 		double presupuesto = result.getDouble("presupuesto");
-		double tiempoDisponible = result.getDouble("tiempoDisponible");
+		double tiempoDisponible = result.getDouble("tiempo");
 
 		return new Usuario(id,nombre,presupuesto,tiempoDisponible);
 	}
