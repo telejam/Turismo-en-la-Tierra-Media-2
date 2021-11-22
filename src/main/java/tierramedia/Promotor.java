@@ -45,7 +45,7 @@ public class Promotor{
 	}
 
 	private void procesar(Ofertable oferta, Usuario usuario) throws SQLException {
-		Scanner entrada= null;
+		Scanner entrada = null;
 
 		//		verificar Ya Cargada
 		if (!usuario.estaCargada(oferta)) {
@@ -80,7 +80,6 @@ public class Promotor{
 				}
 			}
 		}
-		entrada.close(); 
 	}
 
 }
