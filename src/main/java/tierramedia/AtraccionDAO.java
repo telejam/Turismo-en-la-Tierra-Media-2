@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AtraccionesDAO {
+public class AtraccionDAO {
 	public List<Atraccion> findAll() throws SQLException {
 		String sql = "SELECT * FROM atracciones";
 		Connection conn = ConnectionProvider.getConnection();
@@ -19,9 +19,9 @@ public class AtraccionesDAO {
 			atracciones.add(new Atraccion(
 					resultados.getInt("id"),
 					resultados.getString("nombre"),
-					resultados.getDouble("costoDeVisita"),
-					resultados.getDouble("tiempoDeVisita"),
-					resultados.getInt("cupoDiarioDePersonas")
+					resultados.getDouble("costo"),
+					resultados.getDouble("duracion"),
+					resultados.getInt("cupo")
 			));
 		}
 		return atracciones;
