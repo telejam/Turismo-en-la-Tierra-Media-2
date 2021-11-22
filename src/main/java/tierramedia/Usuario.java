@@ -1,11 +1,13 @@
 package tierramedia;
 
+import java.sql.SQLException;
+
 public class Usuario {
 	private int id;
 	private String nombre;
 	private double presupuesto;
 	private double tiempoDisponible;
-	private Itinerario itinerario = new Itinerario();
+	private Itinerario itinerario = new Itinerario(this);
 	
 	public Usuario(int id, String nombre, double presupuesto, double tiempoDisponible) {
 		this.nombre = nombre;
@@ -14,7 +16,7 @@ public class Usuario {
 	}
 	
 	
-	public void agregar(Ofertable ofertable) {		
+	public void agregar(Ofertable ofertable) throws SQLException {		
 		reducirTiempo(ofertable.obtenerDuracion());
 		reducirPresupuesto(ofertable.obtenerCosto());
 		itinerario.agregar(ofertable);
