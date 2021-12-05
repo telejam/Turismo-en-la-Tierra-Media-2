@@ -1,7 +1,9 @@
-package tierramedia;
+package dao;
 
 import java.sql.*;
 import java.util.*;
+
+import tierramedia.Usuario;
 
 public class UsuarioDAO {
 

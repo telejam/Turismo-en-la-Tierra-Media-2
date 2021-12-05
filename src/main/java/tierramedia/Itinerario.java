@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import dao.ItinerarioDAO;
+
 public class Itinerario {
 	private ArrayList<Atraccion> atracciones = new ArrayList<Atraccion>();
 	private Usuario usuario;

@@ -6,6 +6,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+import dao.AtraccionDAO;
+import dao.UsuarioDAO;
+
 public class Promotor{
 
 	List<Atraccion> atracciones;

@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.PromocionDAO;
+
 public class PaquetePromociones {
 
 	private List<Promocion> promociones = new ArrayList<Promocion>();
