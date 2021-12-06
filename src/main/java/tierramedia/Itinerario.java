@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import dao.ItinerarioDAO;
+import dao.FactoryDAO;
 
 public class Itinerario {
 	private ArrayList<Atraccion> atracciones = new ArrayList<Atraccion>();
@@ -12,8 +12,9 @@ public class Itinerario {
 	private double tiempoDeVisita = 0;
 	private double costoDeVisita = 0;
 
-	public Itinerario(Usuario usuario) {
+	public Itinerario(Usuario usuario) throws SQLException {
 		this.usuario = usuario;
+		atracciones = FactoryDAO.getItinerarioDAO().findByIdUsuario(usuario.getId());
 	}
 
 
@@ -45,7 +46,7 @@ public class Itinerario {
 					+ "\n\n Su Tiempo total: " + f.format(this.tiempoDeVisita ) + " horas.";
 		}
 		return mensaje + "\n\nQue disfrute su visita a la Tierra Media."
-				+ "\n\n-------------------------------------------------------------------\n";
+				+ "\n\n-----------------------------------------\n";
 	}
 
 	
@@ -53,18 +54,17 @@ public class Itinerario {
 	
 
 	public void agregar(Ofertable ofertable) throws SQLException {
-		ItinerarioDAO dao = new ItinerarioDAO(); 
-	  
 		String tipo;
+
 		if (ofertable.obtenerContenido().size()>1) {
 			tipo = "P";
 		}  else { 
 			tipo = "A";
 		}
-		dao.insert(ofertable.getId(), tipo,  usuario.getId(), usuario.getNombre(), ofertable.obtenerCosto(), ofertable.obtenerDuracion());
+		FactoryDAO.getItinerarioDAO().insert(ofertable.getId(), tipo, usuario.getId());
 
-		 for (Atraccion atraccion : ofertable.obtenerContenido()) {
-		      atracciones.add(atraccion);
+		for (Atraccion atraccion : ofertable.obtenerContenido()) {
+			atracciones.add(atraccion);
 	    }
 
 	    this.tiempoDeVisita += ofertable.obtenerDuracion();

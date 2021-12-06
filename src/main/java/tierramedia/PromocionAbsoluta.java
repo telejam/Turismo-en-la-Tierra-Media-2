@@ -12,6 +12,7 @@ public class PromocionAbsoluta extends Promocion {
 		this.precioFijo = valor;
 	}
 
+	@Override
 	public double obtenerCosto() {
 		return this.precioFijo;
 	}

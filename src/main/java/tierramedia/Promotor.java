@@ -5,22 +5,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
-
-import dao.AtraccionDAO;
-import dao.UsuarioDAO;
+import dao.FactoryDAO;
 
 public class Promotor{
 
 	List<Atraccion> atracciones;
 	List<Usuario> usuarios;
-	UsuarioDAO daoUsuarios = new UsuarioDAO();
-	AtraccionDAO daoAtraccion = new AtraccionDAO();
 	PaquetePromociones paquetePromociones;
 	List<Ofertable> ofertas = new ArrayList<Ofertable>(); 
 
 	public Promotor() throws SQLException {
-		atracciones = daoAtraccion.findAll();
-		usuarios = daoUsuarios.findAll();
+		atracciones = FactoryDAO.getAtraccionDAO().findAll();
+		usuarios = FactoryDAO.getUsuarioDAO().findAll();
 		paquetePromociones = new PaquetePromociones(atracciones);
 	}
 	
@@ -35,6 +31,10 @@ public class Promotor{
 		}
 		
     	Collections.sort(ofertas, new ComparadorOfertables());
+// verificar ordenamiento
+//    	for(Ofertable oferta : ofertas) {
+//    		System.out.println("=========================\n"+oferta+"\n=======================");
+//    	}
 
 		for (Usuario usuario : usuarios) {
 
@@ -43,6 +43,10 @@ public class Promotor{
 			for (Ofertable oferta : ofertas) {
 				procesar(oferta, usuario);
 			}
+
+			System.out.println("Muchas gracias " + usuario.getNombre());
+			System.out.println("\nQue disfrute su visita a la Tierra Media.");
+			System.out.println("\n=========================================\n");
 		
 		}
 	}
@@ -78,7 +82,7 @@ public class Promotor{
 						}else {
 							System.out.println("¡Sugerencia Rechazada!");
 						}
-						System.out.println("\n-------------------------------------------------------------------\n");
+						System.out.println("\n------------------------------------------\n");
 					}
 				}
 			}

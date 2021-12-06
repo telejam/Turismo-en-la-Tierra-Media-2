@@ -12,6 +12,7 @@ public class PromocionAxB extends Promocion {
 		this.atraccionesAPagar = atraccionesAPagar;
 	}
 
+	@Override
 	public double obtenerCosto() {
 		double precio = 0;
 		for (Atraccion atraccion : atraccionesAPagar) {

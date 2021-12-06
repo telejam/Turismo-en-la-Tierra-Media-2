@@ -7,13 +7,14 @@ public class Usuario {
 	private String nombre;
 	private double presupuesto;
 	private double tiempoDisponible;
-	private Itinerario itinerario = new Itinerario(this);
+	private Itinerario itinerario;
 	
-	public Usuario(int id, String nombre, double presupuesto, double tiempoDisponible) {
+	public Usuario(int id, String nombre, double presupuesto, double tiempoDisponible) throws SQLException {
 		this.id = id;
 		this.nombre = nombre;
 		this.presupuesto = presupuesto;
 		this.tiempoDisponible = tiempoDisponible;
+		this.itinerario =  new Itinerario(this);
 	}
 	
 	

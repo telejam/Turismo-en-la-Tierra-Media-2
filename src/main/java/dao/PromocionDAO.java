@@ -34,8 +34,8 @@ public class PromocionDAO {
 		String sql = "SELECT * FROM atracciones_incluidas WHERE id_promocion = ?";
 		Connection conn = ConnectionProvider.getConnection();
 		PreparedStatement statement = conn.prepareStatement(sql);
-		ResultSet resultados = statement.executeQuery();
 		statement.setInt(1, id); 
+		ResultSet resultados = statement.executeQuery();
 
 		List<Integer> idIncluidas = new ArrayList<Integer>();
 		
@@ -50,8 +50,8 @@ public class PromocionDAO {
 		String sql = "SELECT * FROM atracciones_gratuitas WHERE id_promocion = ?";
 		Connection conn = ConnectionProvider.getConnection();
 		PreparedStatement statement = conn.prepareStatement(sql);
-		ResultSet resultados = statement.executeQuery();
 		statement.setInt(1, id); 
+		ResultSet resultados = statement.executeQuery();
 		
 		List<Integer> idGratuitas = new ArrayList<Integer>();
 		

@@ -8,10 +8,11 @@ public class PromocionPorcentual extends Promocion  {
 	private double porcentajeDeDescuento;
 	
 	public PromocionPorcentual(int id, String nombre, List<Atraccion> atraccionesPromo, double valor) {
-		super(id, nombre,atraccionesPromo);
+		super(id, nombre, atraccionesPromo);
 	    this. porcentajeDeDescuento = valor;
 	}
 	
+	@Override
 	public double obtenerCosto() {
 		double precio = 0;
 		for (Atraccion atraccion : atracciones) {

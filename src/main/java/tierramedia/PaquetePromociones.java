@@ -4,22 +4,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.PromocionDAO;
+import dao.FactoryDAO;
 
 public class PaquetePromociones {
 
 	private List<Promocion> promociones = new ArrayList<Promocion>();
-	private List<PromoParcial> parciales = new ArrayList<PromoParcial>();
-	private PromocionDAO dao = new PromocionDAO();
+	private List<PromoParcial> parciales;
 		
 	public PaquetePromociones(List<Atraccion> lista) throws SQLException {
 		cargarPromociones(lista);
-
 	}
 
 	private void cargarPromociones(List<Atraccion> lista) throws SQLException { 
 
-		parciales = dao.findAll();
+		parciales = FactoryDAO.getPromocionDAO().findAll();
 		List<Integer> idIncluidas;
 		List<Integer> idGratuitas;
 		List<Atraccion> pasarAtracciones;
@@ -28,7 +26,7 @@ public class PaquetePromociones {
 
 		for (PromoParcial promo : parciales) {
 
-			idIncluidas = dao.findIdIncluidas(promo.getId());
+			idIncluidas = FactoryDAO.getPromocionDAO().findIdIncluidas(promo.getId());
 			
 			pasarAtracciones = new ArrayList<Atraccion>();
 			for (int id : idIncluidas) {
@@ -62,7 +60,7 @@ public class PaquetePromociones {
 				listaAPagar = new ArrayList<Atraccion>();
 				listaAPagar.addAll(pasarAtracciones);
 				
-				idGratuitas = dao.findIdGratuitas(promo.getId());
+				idGratuitas = FactoryDAO.getPromocionDAO().findIdGratuitas(promo.getId());
 				
 				listaAtraccionesGratuitas = new ArrayList<Atraccion>();
 				for (int id : idGratuitas) {

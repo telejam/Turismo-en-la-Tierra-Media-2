@@ -36,5 +36,6 @@ public class PromoParcial {
 	}
 	public void setPrecio(double valor) {
 		this.valor = valor;
-	}	
+	}
+
 }

@@ -4,6 +4,7 @@ import java.util.Comparator;
 
 public class ComparadorOfertables implements Comparator<Ofertable>{
 	
+	@Override
 	public int compare(Ofertable oferta1, Ofertable oferta2) {
 		int comparacion;
 		if (oferta1.obtenerContenido().size() > 1 && oferta2.obtenerContenido().size() == 1) 

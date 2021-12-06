@@ -46,7 +46,8 @@ public class Atraccion implements Ofertable{
 		return this.cupoDiarioDePersonas>0;
 	}
 	
-    public void restarCupo() {
+    @Override
+	public void restarCupo() {
         if(this.hayCupo()){
             this.cupoDiarioDePersonas -= 1;
         } else {
@@ -55,7 +56,8 @@ public class Atraccion implements Ofertable{
 
     }
     
-    public int getId() {
+    @Override
+	public int getId() {
 		return this.id;
 	}
 
